@@ -14,29 +14,29 @@ public class DefaultTypeEnv extends TypeEnv {
         {
             TypeVar a = new TypeVar(true);
             TypeVar b = new TypeVar(true);
-            E1 = of(E1, new Symbol("fst"), new ArrowType(new PairType(a, b), a));
+            E1 = of(E1, Symbol.symbol("fst"), new ArrowType(new PairType(a, b), a));
         }
         {
             TypeVar a = new TypeVar(true);
             TypeVar b = new TypeVar(true);
-            E1 = of(E1, new Symbol("snd"), new ArrowType(new PairType(a, b), b));
+            E1 = of(E1, Symbol.symbol("snd"), new ArrowType(new PairType(a, b), b));
         }
         {
             TypeVar a = new TypeVar(true);
-            E1 = of(E1, new Symbol("hd"), new ArrowType(new ListType(a), a));
+            E1 = of(E1, Symbol.symbol("hd"), new ArrowType(new ListType(a), a));
         }
         {
             TypeVar a = new TypeVar(true);
-            E1 = of(E1, new Symbol("tl"), new ArrowType(new ListType(a), new ListType(a)));
+            E1 = of(E1, Symbol.symbol("tl"), new ArrowType(new ListType(a), new ListType(a)));
         }
         {
-            E1 = of(E1, new Symbol("iszero"), new ArrowType(Type.INT, Type.BOOL));
+            E1 = of(E1, Symbol.symbol("iszero"), new ArrowType(Type.INT, Type.BOOL));
         }
         {
-            E1 = of(E1, new Symbol("succ"), new ArrowType(Type.INT, Type.INT));
+            E1 = of(E1, Symbol.symbol("succ"), new ArrowType(Type.INT, Type.INT));
         }
         {
-            E1 = of(E1, new Symbol("pred"), new ArrowType(Type.INT, Type.INT));
+            E1 = of(E1, Symbol.symbol("pred"), new ArrowType(Type.INT, Type.INT));
         }
         E = E1;
     }

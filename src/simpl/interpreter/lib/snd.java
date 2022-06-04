@@ -15,7 +15,26 @@ import simpl.typing.TypeResult;
 public class snd extends FunValue {
 
     public snd() {
-        // TODO
-        super(null, null, null);
+        super(Env.empty, Symbol.symbol("snd_op"), new Expr() {
+            @Override
+            public String toString() {
+                return "snd";
+            }
+
+            @Override
+            public TypeResult typecheck(TypeEnv E) throws TypeError {
+                return null;
+            }
+
+            @Override
+            public Value eval(State s) throws RuntimeError {
+                var value = s.Environment.get(Symbol.symbol("snd_op"));
+                if (value instanceof PairValue) {
+                    return ((PairValue) value).v2;
+                } else {
+                    throw new RuntimeError("snd: not a pair");
+                }
+            }
+        });
     }
 }

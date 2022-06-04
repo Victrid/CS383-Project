@@ -17,7 +17,10 @@ public class RecValue extends Value {
 
     @Override
     public boolean equals(Object other) {
-        // TODO
-        return false;
+        if (other instanceof RecValue) {
+            return E.equals(((RecValue) other).E) && x.equals(((RecValue) other).x) && e.equals(((RecValue) other).e);
+        } else {
+            return false;
+        }
     }
 }

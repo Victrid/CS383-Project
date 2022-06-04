@@ -8,6 +8,7 @@ import simpl.interpreter.lib.snd;
 import simpl.interpreter.pcf.iszero;
 import simpl.interpreter.pcf.pred;
 import simpl.interpreter.pcf.succ;
+import simpl.parser.Symbol;
 
 public class InitialState extends State {
 
@@ -16,6 +17,13 @@ public class InitialState extends State {
     }
 
     private static Env initialEnv(Env E) {
-        return E;
+        Env new_env = new Env(E, Symbol.symbol("fst"), new fst());
+        new_env = new Env(new_env, Symbol.symbol("snd"), new snd());
+        new_env = new Env(new_env, Symbol.symbol("hd"), new hd());
+        new_env = new Env(new_env, Symbol.symbol("tl"), new tl());
+        new_env = new Env(new_env, Symbol.symbol("iszero"), new iszero());
+        new_env = new Env(new_env, Symbol.symbol("pred"), new pred());
+        new_env = new Env(new_env, Symbol.symbol("succ"), new succ());
+        return new_env;
     }
 }

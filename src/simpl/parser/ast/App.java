@@ -35,7 +35,7 @@ public class App extends BinaryExpr {
         Value v = r.eval(s);
         // Evaluate the result
         // Add f.symbol -> v to the environment
-        var new_state = State.of(new Env(f.Environment, f.Symbol, v), s.Memory, s.MemoryIndex);
-        return f.Expression.eval(new_state);
+        var new_state = State.of(new Env(f.env, f.symbol, v), s.Memory, s.MemoryIndex);
+        return f.expr.eval(new_state);
     }
 }

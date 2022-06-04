@@ -25,7 +25,8 @@ public class Ref extends UnaryExpr {
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        int size = s.Memory.size();
+        int size = s.MemoryIndex.get() + 1;
+        s.MemoryIndex.set(size);
         Value v = e.eval(s);
         s.Memory.put(size, v);
         return new RefValue(size);

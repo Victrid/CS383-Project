@@ -28,8 +28,8 @@ public class Let extends Expr {
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
         TypeResult lr = e1.typecheck(E);
-        TypeEnv E1 = lr.s.compose(E);
-        TypeResult rr = e2.typecheck(TypeEnv.of(E1, x, lr.t));
+        TypeEnv E1 = lr.s.compose(TypeEnv.of(E, x, lr.t));
+        TypeResult rr = e2.typecheck(E1);
         Substitution s = rr.s;
         return TypeResult.of(s, s.apply(rr.t));
     }

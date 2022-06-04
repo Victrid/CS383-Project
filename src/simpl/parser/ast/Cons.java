@@ -33,8 +33,8 @@ public class Cons extends BinaryExpr {
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        Value v1 = r.eval(s);
-        Value v2 = l.eval(s);
+        Value v1 = l.eval(s);
+        Value v2 = r.eval(s);
         return new ConsValue(v1, v2);
     }
 }

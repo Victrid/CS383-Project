@@ -1,5 +1,6 @@
 package simpl.parser.ast;
 
+import simpl.interpreter.RecValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
@@ -32,6 +33,8 @@ public class Name extends Expr {
         Value v = s.Environment.get(x);
         if (v == null) {
             throw new RuntimeError("Undefined variable: " + x);
+        } else if (v instanceof RecValue) {
+            return new Rec(((RecValue) v).x, ((RecValue) v).e).eval(State.of(((RecValue) v).E, s.Memory, s.MemoryIndex));
         }
         return v;
     }
