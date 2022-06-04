@@ -39,8 +39,7 @@ public final class RefType extends Type {
 
     @Override
     public Type replace(TypeVar a, Type t) {
-        // TODO
-        return null;
+        return new RefType(this.t.replace(a, t));
     }
 
     public String toString() {

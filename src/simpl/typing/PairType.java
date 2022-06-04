@@ -48,8 +48,7 @@ public final class PairType extends Type {
 
     @Override
     public Type replace(TypeVar a, Type t) {
-        // TODO
-        return null;
+        return new PairType(t1.replace(a, t), t2.replace(a, t));
     }
 
     public String toString() {

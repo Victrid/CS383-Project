@@ -34,7 +34,7 @@ final class BoolType extends Type {
     @Override
     public Type replace(TypeVar a, Type t) {
         // BoolType is one of bottom types, so T[a/t] = BoolType
-        return this;
+        return Type.BOOL;
     }
 
     public String toString() {

@@ -3,9 +3,7 @@ package simpl.parser.ast;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.typing.*;
 
 public class Seq extends BinaryExpr {
 
@@ -19,13 +17,18 @@ public class Seq extends BinaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult rl = l.typecheck(E);
+        TypeEnv E1 = rl.s.compose(E);
+        TypeResult rr = r.typecheck(E1);
+        Substitution s = rr.s.compose(rl.s);
+
+        s = s.compose(s.apply(rl.t).unify(Type.UNIT));
+        return TypeResult.of(s, s.apply(rr.t));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        l.eval(s);
+        return r.eval(s);
     }
 }

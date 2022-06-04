@@ -22,13 +22,14 @@ public class Not extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult r = e.typecheck(E);
+        Substitution s = r.s;
+        s = s.compose(s.apply(r.t).unify(Type.BOOL));
+        return TypeResult.of(s, Type.BOOL);
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        return new BoolValue(!((BoolValue) e.eval(s)).b);
     }
 }

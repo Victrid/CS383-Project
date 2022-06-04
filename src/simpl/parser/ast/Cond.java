@@ -4,11 +4,7 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.Substitution;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.typing.*;
 
 public class Cond extends Expr {
 
@@ -26,13 +22,26 @@ public class Cond extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult r1 = e1.typecheck(E);
+        TypeEnv E1 = r1.s.compose(E);
+        TypeResult r2 = e2.typecheck(E1);
+        TypeEnv E2 = r2.s.compose(E1);
+        TypeResult r3 = e3.typecheck(E2);
+        Substitution s = r3.s.compose(r2.s).compose(r1.s);
+        // t1 = bool
+        s = s.compose(s.apply(r1.t).unify(Type.BOOL));
+        // t2 = t3
+        s = s.compose(s.apply(r2.t).unify(s.apply(r3.t)));
+        return TypeResult.of(s, s.apply(r2.t));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        BoolValue v1 = (BoolValue) e1.eval(s);
+        if (v1.b) {
+            return e2.eval(s);
+        } else {
+            return e3.eval(s);
+        }
     }
 }

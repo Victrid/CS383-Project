@@ -4,13 +4,7 @@ import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.RefType;
-import simpl.typing.Substitution;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
-import simpl.typing.TypeVar;
+import simpl.typing.*;
 
 public class Deref extends UnaryExpr {
 
@@ -24,13 +18,17 @@ public class Deref extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult r = e.typecheck(E);
+        Substitution s = r.s;
+        TypeVar a = new TypeVar(true);
+        RefType ref = new RefType(a);
+        s = s.compose(s.apply(r.t).unify(s.apply(ref)));
+        return TypeResult.of(s, s.apply(a));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        RefValue ref = (RefValue) e.eval(s);
+        return s.Memory.get(ref.p);
     }
 }

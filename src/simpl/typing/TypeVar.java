@@ -20,14 +20,14 @@ public class TypeVar extends Type {
 
     @Override
     public Substitution unify(Type S) throws TypeCircularityError {
-        if (S.contains(this)) {
-            if (S instanceof TypeVar) {
+        if (S instanceof TypeVar) {
+            if (name.equals(((TypeVar) S).name)) {
                 return Substitution.IDENTITY;
-            } else {
-                // S contains this while using this to unify with S
-                throw new TypeCircularityError();
             }
-        } else return Substitution.of(this, S);
+        } else if (S.contains(this)) {
+            throw new TypeCircularityError();
+        }
+        return Substitution.of(this, S);
     }
 
     public String toString() {

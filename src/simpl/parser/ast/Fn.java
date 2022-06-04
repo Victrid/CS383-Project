@@ -5,12 +5,7 @@ import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
 import simpl.parser.Symbol;
-import simpl.typing.ArrowType;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
-import simpl.typing.TypeVar;
+import simpl.typing.*;
 
 public class Fn extends Expr {
 
@@ -28,13 +23,15 @@ public class Fn extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeVar a = new TypeVar(true);
+        TypeResult r = e.typecheck(TypeEnv.of(E, x, a));
+        Substitution s = r.s;
+        ArrowType arrow = new ArrowType(s.apply(a), s.apply(r.t));
+        return TypeResult.of(s, s.apply(arrow));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        return new FunValue(s.Environment, x, e);
     }
 }

@@ -2,14 +2,14 @@ package simpl.interpreter;
 
 public class State {
 
-    public final Env E;
-    public final Mem M;
-    public final Int p;
+    public final Env Environment;
+    public final Mem Memory;
+    public final Int MemoryIndex;
 
-    protected State(Env E, Mem M, Int p) {
-        this.E = E;
-        this.M = M;
-        this.p = p;
+    protected State(Env Environment, Mem Memory, Int MemoryIndex) {
+        this.Environment = Environment;
+        this.Memory = Memory;
+        this.MemoryIndex = MemoryIndex;
     }
 
     public static State of(Env E, Mem M, Int p) {

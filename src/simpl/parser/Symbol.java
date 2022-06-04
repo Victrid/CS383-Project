@@ -1,12 +1,14 @@
 package simpl.parser;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 
 public class Symbol {
 
     private String name;
 
-    private Symbol(String n) {
+    public Symbol(String n) {
         name = n;
     }
 
@@ -28,5 +30,9 @@ public class Symbol {
             dict.put(u, s);
         }
         return s;
+    }
+
+    public Boolean equals(Symbol s) {
+        return name.equals(s.name);
     }
 }

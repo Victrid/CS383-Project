@@ -9,12 +9,16 @@ public abstract class TypeEnv {
         public Type get(Symbol x) {
             return null;
         }
+
+        public String toString() {
+            return "{}";
+        }
     };
 
     public static TypeEnv of(final TypeEnv E, final Symbol x, final Type t) {
         return new TypeEnv() {
             public Type get(Symbol x1) throws TypeError {
-                if (x == x1) return t;
+                if (x.equals(x1)) return t;
                 return E.get(x1);
             }
 

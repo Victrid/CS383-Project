@@ -4,10 +4,7 @@ import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.RefType;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.typing.*;
 
 public class Ref extends UnaryExpr {
 
@@ -21,13 +18,16 @@ public class Ref extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult r = e.typecheck(E);
+        Substitution s = r.s;
+        return TypeResult.of(s, new RefType(s.apply(r.t)));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        int size = s.Memory.size();
+        Value v = e.eval(s);
+        s.Memory.put(size, v);
+        return new RefValue(size);
     }
 }

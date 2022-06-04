@@ -17,4 +17,8 @@ public class TypeResult {
     public static TypeResult of(Substitution s, Type t) {
         return new TypeResult(s, t);
     }
+
+    public String toString() {
+        return "TR[" + t + ";" + s + "]";
+    }
 }

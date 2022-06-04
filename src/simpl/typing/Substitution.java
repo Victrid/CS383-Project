@@ -13,6 +13,10 @@ public abstract class Substitution {
     public abstract Type apply(Type t);
 
     public Substitution compose(Substitution inner) {
+        if (this == IDENTITY)
+            return inner;
+        if (inner == IDENTITY)
+            return this;
         return new Compose(this, inner);
     }
 
@@ -21,12 +25,20 @@ public abstract class Substitution {
             public Type get(Symbol x) throws TypeError {
                 return apply(E.get(x));
             }
+
+            public String toString() {
+                return "" + E;
+            }
         };
     }
 
     private static final class Identity extends Substitution {
         public Type apply(Type t) {
             return t;
+        }
+
+        public String toString() {
+            return "[]";
         }
     }
 
@@ -37,6 +49,10 @@ public abstract class Substitution {
         public Replace(TypeVar a, Type t) {
             this.a = a;
             this.t = t;
+        }
+
+        public String toString() {
+            return "[" + a + " |-> " + t + "]";
         }
 
         public Type apply(Type b) {
@@ -51,6 +67,10 @@ public abstract class Substitution {
         public Compose(Substitution f, Substitution g) {
             this.f = f;
             this.g = g;
+        }
+
+        public String toString() {
+            return "" + f + " o " + g ;
         }
 
         public Type apply(Type t) {

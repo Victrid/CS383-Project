@@ -4,11 +4,7 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.Substitution;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.typing.*;
 
 public class Loop extends Expr {
 
@@ -25,13 +21,22 @@ public class Loop extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult lr = e1.typecheck(E);
+        TypeEnv E1 = lr.s.compose(E);
+        TypeResult rr = e2.typecheck(E1);
+        Substitution s = rr.s;
+        s = s.compose(s.apply(lr.t).unify(Type.BOOL));
+        s = s.compose(s.apply(rr.t).unify(Type.UNIT));
+        return TypeResult.of(s, Type.UNIT);
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        BoolValue v = (BoolValue) e1.eval(s);
+        while (v.b) {
+            e2.eval(s);
+            v = (BoolValue) e1.eval(s);
+        }
+        return Value.UNIT;
     }
 }

@@ -20,7 +20,7 @@ public final class ListType extends Type {
         // let {S = T} = C in
         // else if (S = T) then unify(none)
         if (S instanceof ListType)
-            return S.unify(this.t);
+            return ((ListType) S).t.unify(this.t);
         // else if S = X and X not in FV(T)
         if (S instanceof TypeVar)
             return Substitution.of((TypeVar) S, this);
@@ -37,8 +37,7 @@ public final class ListType extends Type {
 
     @Override
     public Type replace(TypeVar a, Type t) {
-        // TODO
-        return null;
+        return new ListType(this.t.replace(a, t));
     }
 
     public String toString() {
