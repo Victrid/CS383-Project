@@ -1,10 +1,6 @@
 package simpl.parser.ast;
 
-import simpl.typing.Substitution;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.typing.*;
 
 public abstract class ArithExpr extends BinaryExpr {
 

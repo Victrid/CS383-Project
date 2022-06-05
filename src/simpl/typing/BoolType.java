@@ -2,7 +2,7 @@ package simpl.typing;
 
 final class BoolType extends Type {
 
-    protected BoolType() {
+    BoolType () {
     }
 
     @Override

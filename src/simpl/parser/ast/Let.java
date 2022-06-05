@@ -12,8 +12,9 @@ import simpl.typing.TypeResult;
 
 public class Let extends Expr {
 
-    public Symbol x;
-    public Expr e1, e2;
+    public final Symbol x;
+    public final Expr e1;
+    public final Expr e2;
 
     public Let(Symbol x, Expr e1, Expr e2) {
         this.x = x;
@@ -27,9 +28,8 @@ public class Let extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        TypeResult lr = e1.typecheck(E);
-        TypeEnv E1 = lr.s.compose(TypeEnv.of(E, x, lr.t));
-        TypeResult rr = e2.typecheck(E1);
+        e1.typecheck(E);
+        TypeResult rr = e2.substitute(x, e1).typecheck(E);
         Substitution s = rr.s;
         return TypeResult.of(s, s.apply(rr.t));
     }
@@ -39,5 +39,15 @@ public class Let extends Expr {
         Value v = e1.eval(s);
         var new_state = State.of(new Env(s.Environment, x, v), s.Memory, s.MemoryIndex);
         return e2.eval(new_state);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        // Let polymorphism
+        if (x.equals(t)) {
+            return new Let(x, e1.substitute(t, s), e2);
+        } else {
+            return new Let(x, e1.substitute(t, s), e2.substitute(t, s));
+        }
     }
 }

@@ -1,6 +1,7 @@
 package simpl.parser.ast;
 
 import simpl.interpreter.*;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class App extends BinaryExpr {
@@ -37,5 +38,10 @@ public class App extends BinaryExpr {
         // Add f.symbol -> v to the environment
         var new_state = State.of(new Env(f.env, f.symbol, v), s.Memory, s.MemoryIndex);
         return f.expr.eval(new_state);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new App(l.substitute(t, s), r.substitute(t, s));
     }
 }

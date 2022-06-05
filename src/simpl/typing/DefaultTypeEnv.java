@@ -1,7 +1,6 @@
 package simpl.typing;
 
 import simpl.parser.Symbol;
-import simpl.parser.ast.Sub;
 
 public class DefaultTypeEnv extends TypeEnv {
 

@@ -4,9 +4,7 @@ import simpl.interpreter.IntValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.parser.Symbol;
 
 public class Add extends ArithExpr {
 
@@ -27,5 +25,10 @@ public class Add extends ArithExpr {
         IntValue lv = (IntValue) l.eval(s);
         IntValue rv = (IntValue) r.eval(s);
         return new IntValue(lv.n + rv.n);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Add(l.substitute(t, s), r.substitute(t, s));
     }
 }

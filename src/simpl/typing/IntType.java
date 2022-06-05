@@ -2,7 +2,7 @@ package simpl.typing;
 
 final class IntType extends Type {
 
-    protected IntType() {
+    IntType () {
     }
 
     @Override

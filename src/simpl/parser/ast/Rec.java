@@ -7,7 +7,6 @@ import simpl.interpreter.State;
 import simpl.interpreter.Value;
 import simpl.parser.Symbol;
 import simpl.typing.Substitution;
-import simpl.typing.Type;
 import simpl.typing.TypeEnv;
 import simpl.typing.TypeError;
 import simpl.typing.TypeResult;
@@ -15,8 +14,8 @@ import simpl.typing.TypeVar;
 
 public class Rec extends Expr {
 
-    public Symbol x;
-    public Expr e;
+    public final Symbol x;
+    public final Expr e;
 
     public Rec(Symbol x, Expr e) {
         this.x = x;
@@ -40,5 +39,14 @@ public class Rec extends Expr {
     public Value eval(State s) throws RuntimeError {
         RecValue rv = new RecValue(s.Environment, x, e);
         return e.eval(State.of(new Env(s.Environment, x, rv), s.Memory, s.MemoryIndex));
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        if (x.equals(t)) {
+            return s;
+        } else {
+            return new Rec(x, e.substitute(t, s));
+        }
     }
 }

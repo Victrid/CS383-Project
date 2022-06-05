@@ -4,6 +4,7 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class AndAlso extends BinaryExpr {
@@ -36,5 +37,10 @@ public class AndAlso extends BinaryExpr {
         } else {
             return new BoolValue(false);
         }
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new AndAlso(l.substitute(t, s), r.substitute(t, s));
     }
 }

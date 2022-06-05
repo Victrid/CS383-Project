@@ -4,6 +4,7 @@ import simpl.interpreter.IntValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 
 public class Mod extends ArithExpr {
 
@@ -20,5 +21,10 @@ public class Mod extends ArithExpr {
         IntValue v1 = (IntValue) l.eval(s);
         IntValue v2 = (IntValue) r.eval(s);
         return new IntValue(v1.n % v2.n);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Mod(l.substitute(t, s), r.substitute(t, s));
     }
 }

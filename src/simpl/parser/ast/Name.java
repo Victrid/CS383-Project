@@ -9,7 +9,7 @@ import simpl.typing.*;
 
 public class Name extends Expr {
 
-    public Symbol x;
+    public final Symbol x;
 
     public Name(Symbol x) {
         this.x = x;
@@ -37,5 +37,14 @@ public class Name extends Expr {
             return new Rec(((RecValue) v).x, ((RecValue) v).e).eval(State.of(((RecValue) v).E, s.Memory, s.MemoryIndex));
         }
         return v;
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        if (x.equals(t)) {
+            return s;
+        } else {
+            return this;
+        }
     }
 }

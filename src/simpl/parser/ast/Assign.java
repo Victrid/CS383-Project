@@ -4,6 +4,7 @@ import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class Assign extends BinaryExpr {
@@ -37,5 +38,10 @@ public class Assign extends BinaryExpr {
         Value v = r.eval(s);
         s.Memory.put(ref.p, v);
         return Value.UNIT;
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Assign(l.substitute(t, s), r.substitute(t, s));
     }
 }

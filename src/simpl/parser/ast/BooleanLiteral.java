@@ -1,17 +1,14 @@
 package simpl.parser.ast;
 
 import simpl.interpreter.BoolValue;
-import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
-import simpl.typing.Type;
-import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
-import simpl.typing.TypeResult;
+import simpl.parser.Symbol;
+import simpl.typing.*;
 
 public class BooleanLiteral extends Expr {
 
-    public boolean b;
+    public final boolean b;
 
     public BooleanLiteral(boolean b) {
         this.b = b;
@@ -22,12 +19,17 @@ public class BooleanLiteral extends Expr {
     }
 
     @Override
-    public TypeResult typecheck(TypeEnv E) throws TypeError {
+    public TypeResult typecheck(TypeEnv E) {
         return TypeResult.of(Type.BOOL);
     }
 
     @Override
-    public Value eval(State s) throws RuntimeError {
+    public Value eval(State s) {
         return new BoolValue(b);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return this;
     }
 }

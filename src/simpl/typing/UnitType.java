@@ -2,7 +2,7 @@ package simpl.typing;
 
 final class UnitType extends Type {
 
-    protected UnitType() {
+    UnitType () {
     }
 
     @Override

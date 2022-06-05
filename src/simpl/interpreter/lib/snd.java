@@ -9,7 +9,6 @@ import simpl.interpreter.Value;
 import simpl.parser.Symbol;
 import simpl.parser.ast.Expr;
 import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
 import simpl.typing.TypeResult;
 
 public class snd extends FunValue {
@@ -22,7 +21,7 @@ public class snd extends FunValue {
             }
 
             @Override
-            public TypeResult typecheck(TypeEnv E) throws TypeError {
+            public TypeResult typecheck(TypeEnv E) {
                 return null;
             }
 
@@ -34,6 +33,11 @@ public class snd extends FunValue {
                 } else {
                     throw new RuntimeError("snd: not a pair");
                 }
+            }
+
+            @Override
+            public Expr substitute(Symbol t, Expr s) {
+                return this;
             }
         });
     }

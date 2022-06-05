@@ -5,6 +5,7 @@ import simpl.interpreter.IntValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 
 public class Less extends RelExpr {
 
@@ -21,5 +22,10 @@ public class Less extends RelExpr {
         IntValue v1 = (IntValue) l.eval(s);
         IntValue v2 = (IntValue) r.eval(s);
         return new BoolValue(v1.n < v2.n);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Less(l.substitute(t, s), r.substitute(t, s));
     }
 }

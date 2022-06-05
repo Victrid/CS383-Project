@@ -9,7 +9,7 @@ public abstract class Type {
     /**
      * This method returns true if this type is comparable.
      * <p>
-     * Only int, bool, t list, t ref, and Pair a a can be comparable.
+     * Only int, bool, t list, t ref, and Pair [a, a] can be comparable.
      *
      * @return true if this type is comparable
      */
@@ -37,7 +37,7 @@ public abstract class Type {
      *
      * @param t a type
      * @return Unify({ Type_t = this_type })
-     * @throws TypeError
+     * @throws TypeError if this type is not valid
      */
     public abstract Substitution unify(Type t) throws TypeError;
 }

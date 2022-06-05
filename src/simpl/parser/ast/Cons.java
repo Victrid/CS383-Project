@@ -4,6 +4,7 @@ import simpl.interpreter.ConsValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class Cons extends BinaryExpr {
@@ -31,10 +32,16 @@ public class Cons extends BinaryExpr {
         return TypeResult.of(s, list);
     }
 
+
     @Override
     public Value eval(State s) throws RuntimeError {
         Value v1 = l.eval(s);
         Value v2 = r.eval(s);
         return new ConsValue(v1, v2);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Cons(l.substitute(t, s), r.substitute(t, s));
     }
 }

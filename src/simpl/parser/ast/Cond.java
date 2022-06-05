@@ -4,11 +4,14 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class Cond extends Expr {
 
-    public Expr e1, e2, e3;
+    public final Expr e1;
+    public final Expr e2;
+    public final Expr e3;
 
     public Cond(Expr e1, Expr e2, Expr e3) {
         this.e1 = e1;
@@ -43,5 +46,10 @@ public class Cond extends Expr {
         } else {
             return e3.eval(s);
         }
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Cond(e1.substitute(t, s), e2.substitute(t, s), e3.substitute(t, s));
     }
 }

@@ -1,6 +1,5 @@
 package simpl.interpreter;
 
-import static simpl.parser.Symbol.symbol;
 import simpl.interpreter.lib.hd;
 import simpl.interpreter.lib.tl;
 import simpl.interpreter.lib.fst;
@@ -13,11 +12,11 @@ import simpl.parser.Symbol;
 public class InitialState extends State {
 
     public InitialState() {
-        super(initialEnv(Env.empty), new Mem(), new Int(0));
+        super(initialEnv(), new Mem(), new Int(0));
     }
 
-    private static Env initialEnv(Env E) {
-        Env new_env = new Env(E, Symbol.symbol("fst"), new fst());
+    private static Env initialEnv() {
+        Env new_env = new Env(Env.empty, Symbol.symbol("fst"), new fst());
         new_env = new Env(new_env, Symbol.symbol("snd"), new snd());
         new_env = new Env(new_env, Symbol.symbol("hd"), new hd());
         new_env = new Env(new_env, Symbol.symbol("tl"), new tl());

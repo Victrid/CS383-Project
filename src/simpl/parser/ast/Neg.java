@@ -4,6 +4,7 @@ import simpl.interpreter.IntValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.Substitution;
 import simpl.typing.Type;
 import simpl.typing.TypeEnv;
@@ -31,5 +32,10 @@ public class Neg extends UnaryExpr {
     @Override
     public Value eval(State s) throws RuntimeError {
         return new IntValue(-((IntValue) e.eval(s)).n);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Neg(e.substitute(t, s));
     }
 }

@@ -1,5 +1,6 @@
 package simpl.interpreter;
 
+import org.jetbrains.annotations.Contract;
 import simpl.parser.Symbol;
 
 /**
@@ -14,7 +15,7 @@ import simpl.parser.Symbol;
  */
 public class Env {
 
-    public static Env empty = new Env() {
+    public static final Env empty = new Env() {
         public Value get(Symbol y) {
             return null;
         }

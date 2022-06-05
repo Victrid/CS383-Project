@@ -4,6 +4,7 @@ import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class Ref extends UnaryExpr {
@@ -30,5 +31,10 @@ public class Ref extends UnaryExpr {
         Value v = e.eval(s);
         s.Memory.put(size, v);
         return new RefValue(size);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Ref(e.substitute(t, s));
     }
 }

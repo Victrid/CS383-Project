@@ -4,6 +4,7 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.Substitution;
 import simpl.typing.Type;
 import simpl.typing.TypeEnv;
@@ -31,5 +32,10 @@ public class Not extends UnaryExpr {
     @Override
     public Value eval(State s) throws RuntimeError {
         return new BoolValue(!((BoolValue) e.eval(s)).b);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Not(e.substitute(t, s));
     }
 }

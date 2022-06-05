@@ -1,7 +1,6 @@
 package simpl.parser.ast;
 
 import simpl.interpreter.FunValue;
-import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
 import simpl.parser.Symbol;
@@ -9,8 +8,8 @@ import simpl.typing.*;
 
 public class Fn extends Expr {
 
-    public Symbol x;
-    public Expr e;
+    public final Symbol x;
+    public final Expr e;
 
     public Fn(Symbol x, Expr e) {
         this.x = x;
@@ -31,7 +30,12 @@ public class Fn extends Expr {
     }
 
     @Override
-    public Value eval(State s) throws RuntimeError {
+    public Value eval(State s) {
         return new FunValue(s.Environment, x, e);
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Fn(x, e.substitute(t, s));
     }
 }

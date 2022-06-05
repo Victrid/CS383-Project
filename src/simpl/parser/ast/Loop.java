@@ -4,11 +4,13 @@ import simpl.interpreter.BoolValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
 import simpl.interpreter.Value;
+import simpl.parser.Symbol;
 import simpl.typing.*;
 
 public class Loop extends Expr {
 
-    public Expr e1, e2;
+    public final Expr e1;
+    public final Expr e2;
 
     public Loop(Expr e1, Expr e2) {
         this.e1 = e1;
@@ -38,5 +40,10 @@ public class Loop extends Expr {
             v = (BoolValue) e1.eval(s);
         }
         return Value.UNIT;
+    }
+
+    @Override
+    public Expr substitute(Symbol t, Expr s) {
+        return new Loop(e1.substitute(t, s), e2.substitute(t, s));
     }
 }

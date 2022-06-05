@@ -4,7 +4,6 @@ import simpl.interpreter.*;
 import simpl.parser.Symbol;
 import simpl.parser.ast.Expr;
 import simpl.typing.TypeEnv;
-import simpl.typing.TypeError;
 import simpl.typing.TypeResult;
 
 public class iszero extends FunValue {
@@ -17,7 +16,7 @@ public class iszero extends FunValue {
             }
 
             @Override
-            public TypeResult typecheck(TypeEnv E) throws TypeError {
+            public TypeResult typecheck(TypeEnv E) {
                 return null;
             }
 
@@ -29,6 +28,11 @@ public class iszero extends FunValue {
                 } else {
                     throw new RuntimeError("iszero: error");
                 }
+            }
+
+            @Override
+            public Expr substitute(Symbol t, Expr s) {
+                return this;
             }
         });
     }

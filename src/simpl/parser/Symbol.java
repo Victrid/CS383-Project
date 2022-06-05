@@ -1,12 +1,10 @@
 package simpl.parser;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 
 public class Symbol {
 
-    private String name;
+    private final String name;
 
     public Symbol(String n) {
         name = n;
@@ -16,7 +14,7 @@ public class Symbol {
         return name;
     }
 
-    private static HashMap<String, Symbol> dict = new HashMap<String, Symbol>();
+    private static final HashMap<String, Symbol> dict = new HashMap<>();
 
     /**
      * Make return the unique symbol associated with a string. Repeated calls to <tt>symbol("abc")</tt> will return the
