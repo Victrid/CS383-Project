@@ -1,0 +1,27 @@
+let a = ref 1 in
+    ()
+end;
+let b = ref 1 in
+    ()
+end;
+let c = ref 1 in
+    ()
+end;
+let d = ref 1 in
+    ()
+end;
+let e = ref 1 in
+    ()
+end;
+let f = ref 1 in
+    ()
+end;
+let g = ref 1 in
+    ()
+end;
+let h = ref 1 in
+    ()
+end;
+let i = ref 1 in
+    ()
+end

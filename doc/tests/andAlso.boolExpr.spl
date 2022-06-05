@@ -1,0 +1,10 @@
+(* This tests all boolean expressions *)
+let
+  andand = rec andand =>
+  		fn a => if a=nil
+                then true
+                else hd a andalso (andand (tl a))
+in
+  andand ((true)::(not false)::(true andalso true)::(false orelse true)::(true orelse false)::(1 < 2)::(2 >= 2)::(6 <= 6)::(3 > 1)::(5 <> 3)::(1 = 1)::nil)
+end
+(* ==> true *)
