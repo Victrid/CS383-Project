@@ -24,9 +24,9 @@ public class Env {
             return this;
         }
     };
-    private final Env Environment;
+    final Env Environment;
     private final Symbol Symbol;
-    private final Value Value;
+    final Value Value;
 
     private Env() {
         Environment = null;

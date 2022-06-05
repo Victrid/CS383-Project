@@ -33,7 +33,8 @@ class InterpreterTest {
                          Arguments.of("doc/tests/andAlso.boolExpr.spl", "true"),
                          Arguments.of("doc/tests/sequence.spl", "5"),
                          Arguments.of("doc/tests/pcf.twice.fixed.spl", "8"),
-                         Arguments.of("doc/tests/true.fixed.spl", "true"));
+                         Arguments.of("doc/tests/true.fixed.spl", "true"),
+                         Arguments.of("doc/tests/largememory.spl", "unit"));
     }
 
     void test_file (String filename) throws Exception {
