@@ -7,8 +7,7 @@ public class DefaultTypeEnv extends TypeEnv {
     private final TypeEnv E;
 
     public DefaultTypeEnv() {
-        TypeEnv E1;
-        E1 = TypeEnv.empty;
+        TypeEnv E1 = TypeEnv.empty;
         // Add the built-in functions to the environment
         {
             TypeVar a = new TypeVar(true);

@@ -36,6 +36,10 @@ public class Fn extends Expr {
 
     @Override
     public Expr substitute(Symbol t, Expr s) {
-        return new Fn(x, e.substitute(t, s));
+        if (x.equals(t)) {
+            return s;
+        } else {
+            return new Fn(x, e.substitute(t, s));
+        }
     }
 }
